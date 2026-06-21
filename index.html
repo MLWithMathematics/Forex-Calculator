@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Forex Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-elements">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <main class="container">
+        <header>
+            <h1><i class="fa-solid fa-chart-line"></i> FX Calc<span class="highlight">Pro</span></h1>
+            <p>Advanced Lot Size & Profit/Loss Calculator</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="lot-size"><i class="fa-solid fa-scale-balanced"></i> Lot Size Calculator</button>
+            <button class="tab-btn" data-tab="pnl"><i class="fa-solid fa-sack-dollar"></i> Profit & Loss Calculator</button>
+        </div>
+
+        <div class="calculator-wrapper">
+            <!-- Lot Size Calculator Tab -->
+            <section id="lot-size" class="tab-content active">
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="account-balance">Account Balance ($)</label>
+                        <div class="input-icon">
+                            <i class="fa-solid fa-dollar-sign"></i>
+                            <input type="number" id="account-balance" placeholder="10000" value="10000" min="0">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="risk-percentage">Risk Percentage (%)</label>
+                        <div class="input-icon">
+                            <i class="fa-solid fa-percent"></i>
+                            <input type="number" id="risk-percentage" placeholder="1" value="1" step="0.1" min="0">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="stop-loss">Stop Loss (Pips)</label>
+                        <div class="input-icon">
+                            <i class="fa-solid fa-arrow-down-short-wide"></i>
+                            <input type="number" id="stop-loss" placeholder="50" value="50" min="0">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="currency-pair-lot">Currency Pair</label>
+                        <div class="input-icon">
+                            <i class="fa-solid fa-coins"></i>
+                            <select id="currency-pair-lot">
+                                <option value="EURUSD">EUR/USD</option>
+                                <option value="GBPUSD">GBP/USD</option>
+                                <option value="USDJPY">USD/JPY</option>
+                                <option value="AUDUSD">AUD/USD</option>
+                                <option value="USDCAD">USD/CAD</option>
+                                <option value="USDCHF">USD/CHF</option>
+                                <option value="NZDUSD">NZD/USD</option>
+                                <option value="CUSTOM">Custom</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="current-price-lot">Current Price / Pip Value Ref <i class="fa-solid fa-circle-info tooltip" title="Hybrid input: Auto-fetches current rate, but you can manually override."></i></label>
+                        <div class="input-icon">
+                            <i class="fa-solid fa-tag"></i>
+                            <input type="number" id="current-price-lot" placeholder="1.0000" value="1.0000" step="0.00001">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="results-panel">
+                    <div class="result-box primary">
+                        <span>Recommended Lot Size</span>
+                        <h2 id="result-lot-size">0.00</h2>
+                        <p class="subtitle">Standard Lots (100k units)</p>
+                    </div>
+                    <div class="result-box secondary">
+                        <span>Risk Amount</span>
+                        <h3 id="result-risk-amount">$0.00</h3>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profit and Loss Calculator Tab -->
+            <section id="pnl" class="tab-content">
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="currency-pair-pnl">Currency Pair</label>
+                        <div class="input-icon">
+                            <i class="fa-solid fa-coins"></i>
+                            <select id="currency-pair-pnl">
+                                <option value="EURUSD">EUR/USD</option>
+                                <option value="GBPUSD">GBP/USD</option>
+                                <option value="USDJPY">USD/JPY</option>
+                                <option value="AUDUSD">AUD/USD</option>
+                                <option value="USDCAD">USD/CAD</option>
+                                <option value="USDCHF">USD/CHF</option>
+                                <option value="NZDUSD">NZD/USD</option>
+                                <option value="CUSTOM">Custom</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="current-price-pnl">Current Price (For Conversion) <i class="fa-solid fa-circle-info tooltip" title="Used to convert the PnL from Quote Currency to Account Currency."></i></label>
+                        <div class="input-icon">
+                            <i class="fa-solid fa-tag"></i>
+                            <input type="number" id="current-price-pnl" placeholder="1.0000" value="1.0000" step="0.00001">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="trade-direction">Trade Direction</label>
+                        <div class="radio-group">
+                            <input type="radio" id="buy" name="direction" value="buy" checked>
+                            <label for="buy" class="buy-label">Buy (Long)</label>
+                            
+                            <input type="radio" id="sell" name="direction" value="sell">
+                            <label for="sell" class="sell-label">Sell (Short)</label>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="lot-size-pnl">Lot Size (Standard)</label>
+                        <div class="input-icon">
+                            <i class="fa-solid fa-layer-group"></i>
+                            <input type="number" id="lot-size-pnl" placeholder="1.0" value="1.0" step="0.01" min="0">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="entry-price">Entry Price</label>
+                        <div class="input-icon">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                            <input type="number" id="entry-price" placeholder="1.1000" value="1.1000" step="0.00001">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="exit-price">Exit Price</label>
+                        <div class="input-icon">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <input type="number" id="exit-price" placeholder="1.1050" value="1.1050" step="0.00001">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="contract-size">Contract Size</label>
+                        <div class="input-icon">
+                            <i class="fa-solid fa-cubes"></i>
+                            <input type="number" id="contract-size" placeholder="100000" value="100000" min="1">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-panel">
+                    <div class="result-box primary" id="pnl-result-box">
+                        <span>Expected Profit / Loss</span>
+                        <h2 id="result-pnl">$0.00</h2>
+                        <p class="subtitle" id="pnl-pips-diff">0 Pips difference</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="app-footer">
+            <div class="contact-info">
+                <p>Created by <strong>Shubhankar Sharma</strong></p>
+                <a href="mailto:shubhankar.s2000@gmail.com" class="contact-email"><i class="fa-solid fa-envelope"></i> shubhankar.s2000@gmail.com</a>
+            </div>
+            <a href="https://digitalheroesco.com" target="_blank" class="digital-heroes-btn">Built for Digital Heroes</a>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
