@@ -10,7 +10,7 @@ A beautifully designed, ultra-fast, standalone Forex Calculator built with pure 
 - **Lot Size Calculator**: Instantly calculates the precise Lot Size to use based on your Account Balance, Risk Percentage, and Stop Loss. 
 - **Profit/Loss Calculator**: Accurately computes expected Profit or Loss for both Buy (Long) and Sell (Short) trades.
 - **Quote Currency Conversion**: Automatically converts your raw Profit & Loss from the traded pair's Quote Currency back into your base Account Currency (USD) using the current exchange rate.
-- **Hybrid Exchange Rate Engine**: Integrates with the free ExchangeRate-API to fetch daily live rates for base USD pairs, while allowing you to manually override the "Current Price" for ultimate precision to match your broker's exact quote.
+- **Hybrid Exchange Rate Engine**: Integrates with a free public API to fetch **daily baseline exchange rates** (updates once every 24 hours). Because true second-by-second forex data requires paid API keys, this daily fetch acts as a great automatic approximation. However, the tool is specifically designed to allow you to manually override the "Current Price" field with the exact live tick from your broker's terminal (like MetaTrader) to guarantee 100% perfect precision.
 - **Standalone & Lightweight**: No heavy frameworks, no build steps. It runs instantly in any modern web browser.
 
 ## 🚀 How to Run
